@@ -33,3 +33,10 @@ body {
 	display: block;
 	z-index: 99;
 }
+h1 {
+	font-size: 2rem;
+	margin-bottom: 0.5rem;
+	color: #f8f9fa;
+	/* padding-bottom: 5px; */
+	/* border: 2px solid blue; */
+}
