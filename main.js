@@ -14,3 +14,10 @@ const ctx = document.querySelector('#myChart')
 let chartCountryCode = 'worldwide'
 
 selectCountries.addEventListener('click', () => console.log('clicked select'))
+function createMap() {
+	map = L.map('map').setView([40, 40], 3)
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map)
+	//   let country = L.marker([ lat, long ])
+	//   country.addTo(map)
+}
+createMap()
