@@ -141,3 +141,45 @@ async function countryChange(event) {
 		console.log('chartCountryCode inside else:', chartCountryCode)
 	}
 }
+//show single country on map
+function showOneCountryOnMap(data) {
+	console.log('one country data: ', data)
+	// fetchCasesCountryforChart(chartCountryCode)
+
+	const container = document.createElement('section')
+	container.classList.add('info__container')
+	const flag = document.createElement('img')
+	flag.src = data.countryInfo.flag
+	flag.classList.add('info__flag')
+	//create function to generate DOM elements
+	const countryName = document.createElement('h4')
+	countryName.classList.add('info__name')
+	countryName.innerText = data.country
+
+	const cases = document.createElement('p')
+	cases.classList.add('info__confirmed')
+	cases.innerText = `Cases: ${data.cases}`
+
+	const recovered = document.createElement('p')
+	recovered.classList.add('info__recovered')
+	recovered.innerText = `Recovered: ${data.recovered}`
+
+	const deaths = document.createElement('p')
+	deaths.classList.add('info__deaths')
+	deaths.innerText = `Deaths: ${data.deaths}`
+	container.append(flag, countryName, cases, recovered, deaths)
+	map.remove()
+	createOneCountryMap(data.countryInfo.lat, data.countryInfo.long)
+	L.circle([data.countryInfo.lat, data.countryInfo.long], {
+		radius: Math.sqrt(data.cases) * casesTypeColors.cases.multiplier,
+	})
+		.setStyle(
+			{color: casesTypeColors.cases.hex},
+			{fillColor: casesTypeColors.cases.hex},
+			{fillOpacity: 0.4}
+		)
+		.addTo(map)
+		.bindPopup(container)
+		.openPopup()
+	// .closePopup()
+}
