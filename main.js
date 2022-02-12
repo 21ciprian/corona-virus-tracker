@@ -370,7 +370,7 @@ async function fetchDeathsForChart(code) {
 	// // console.log('data for graph deaths: ', data)
 	// convertCaseTypesForChart(data.timeline, 'deaths')
 }
-//convert data for chart
+//convert data for
 function convertCaseTypesForChart(data, casesType) {
 	let chartData = []
 	let lastDataPoint
@@ -384,3 +384,36 @@ function convertCaseTypesForChart(data, casesType) {
 		}
 		lastDataPoint = data[casesType][date]
 	}
+	//create chart
+	myChart = new Chart(ctx, {
+		type: 'line',
+
+		data: {
+			datasets: [
+				{
+					fill: true,
+					backgroundColor: casesTypeColors[casesType].rgba,
+					borderColor: casesTypeColors[casesType].hex,
+					borderWidth: 3,
+					data: chartData,
+				},
+			],
+		},
+		options: {
+			plugins: {
+				legend: {
+					display: false,
+					label: '',
+				},
+			},
+			elements: {
+				point: {
+					radius: 0,
+				},
+			},
+			interaction: {
+				intersect: false,
+			},
+		},
+	})
+}
