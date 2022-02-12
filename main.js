@@ -78,3 +78,12 @@ async function fetchAllDeathCases() {
 	populateTable(countries)
 	// console.log('countries fetched: ', data[0].countryInfo.flag)
 }
+//create options for select component
+function populateOptions(countries) {
+	countries.map(function (country) {
+		const option = document.createElement('option')
+		option.innerText = country.name
+		option.setAttribute('value', country.value)
+		selectCountries.appendChild(option)
+	})
+}
