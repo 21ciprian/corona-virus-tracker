@@ -291,3 +291,32 @@ selectCountries.addEventListener('click', countryChange)
 covidCases.addEventListener('click', setAllCasesCircles)
 covidRecoveries.addEventListener('click', setRecoveredCircles)
 covidDeaths.addEventListener('click', setDeathsCircles)
+// **************chart*********
+//fetch data for chart
+
+//fetch all cases for chart
+async function fetchAllCasesForChart(code) {
+	if (code === 'worldwide') {
+		const response = await fetch(
+			'https://disease.sh/v3/covid-19/historical/all?lastdays=60'
+		)
+		const data = await response.json()
+		convertCaseTypesForChart(data, 'cases')
+	} else {
+		const response = await fetch(
+			`https://disease.sh/v3/covid-19/historical/${code}?lastdays=30`
+		)
+		const data = await response.json()
+		convertCaseTypesForChart(data.timeline, 'cases')
+	}
+	// const url =
+	// 	code === 'worldwide'
+	// 		? 'https://disease.sh/v3/covid-19/historical/all?lastdays=60'
+	// 		: `https://disease.sh/v3/covid-19/historical/${code}?lastdays=30`
+
+	// const response = await fetch(url)
+	// const data = await response.json()
+	// console.log('cases for country: ', data)
+	// convertCaseTypesForChart(data.timeline, 'cases')
+}
+fetchAllCasesForChart(chartCountryCode)
