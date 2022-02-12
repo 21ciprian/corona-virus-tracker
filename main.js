@@ -248,3 +248,14 @@ function createOneCountryMap(lat, long) {
 	//   country.addTo(map)
 }
 createMap()
+//display circles for covid cases
+async function setAllCasesCircles() {
+	displayLoader()
+	console.log('clicked case')
+	myChart.destroy()
+	map.remove()
+	createMap()
+
+	await fetchAllCovidCases()
+	await fetchAllCasesForChart(chartCountryCode)
+}
