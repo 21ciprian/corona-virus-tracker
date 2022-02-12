@@ -41,3 +41,21 @@ async function fetchAllCovidCases() {
 }
 
 fetchAllCovidCases()
+//show all recovered cases
+async function fetchAllRecoveredCases() {
+	const response = await fetch(`https://disease.sh/v3/covid-19/countries`)
+	const data = await response.json()
+
+	// loop over data and get the country name and country iso2 "uk, us ..."
+	const countries = data.map(function (country) {
+		return {
+			name: country.country,
+			value: country.countryInfo.iso2,
+			cases: country.cases,
+		}
+	})
+	showOnMap(data, 'recovered')
+	populateOptions(countries)
+	populateTable(countries)
+	// console.log('countries fetched: ', data)
+}
