@@ -259,3 +259,13 @@ async function setAllCasesCircles() {
 	await fetchAllCovidCases()
 	await fetchAllCasesForChart(chartCountryCode)
 }
+async function setRecoveredCircles() {
+	displayLoader()
+	console.log('clicked recovered')
+	myChart.destroy()
+	map.remove()
+	createMap()
+
+	await fetchAllRecoveredCases()
+	await fetchRecoveredForChart(chartCountryCode)
+}
