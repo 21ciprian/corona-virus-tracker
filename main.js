@@ -87,3 +87,16 @@ function populateOptions(countries) {
 		selectCountries.appendChild(option)
 	})
 }
+//populate table with county names and covid cases
+function populateTable(countries) {
+	countries.map(function (country) {
+		const tableRow = document.createElement('tr')
+		const countryName = document.createElement('td')
+		countryName.innerText = country.name
+		const countryCases = document.createElement('td')
+		countryCases.innerText = country.cases
+		tableRow.appendChild(countryName)
+		tableRow.appendChild(countryCases)
+		tableCases.appendChild(tableRow)
+	})
+}
