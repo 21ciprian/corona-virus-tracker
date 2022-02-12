@@ -279,3 +279,10 @@ async function setDeathsCircles() {
 	await fetchAllDeathCases()
 	await fetchDeathsForChart(chartCountryCode)
 }
+//locate country
+function locateCountry() {
+	map.remove()
+	createMap()
+	console.log('locatecountry lat: ', latitude)
+	console.log('locatecountry long: ', longitude)
+}
