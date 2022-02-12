@@ -269,3 +269,13 @@ async function setRecoveredCircles() {
 	await fetchAllRecoveredCases()
 	await fetchRecoveredForChart(chartCountryCode)
 }
+async function setDeathsCircles() {
+	console.log('clicked deaths')
+	myChart.destroy()
+	displayLoader()
+	map.remove()
+	createMap()
+
+	await fetchAllDeathCases()
+	await fetchDeathsForChart(chartCountryCode)
+}
