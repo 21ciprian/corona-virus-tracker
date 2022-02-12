@@ -370,3 +370,17 @@ async function fetchDeathsForChart(code) {
 	// // console.log('data for graph deaths: ', data)
 	// convertCaseTypesForChart(data.timeline, 'deaths')
 }
+//convert data for chart
+function convertCaseTypesForChart(data, casesType) {
+	let chartData = []
+	let lastDataPoint
+	for (let date in data[casesType]) {
+		if (lastDataPoint) {
+			const newDataPoint = {
+				x: date,
+				y: data[casesType][date] - lastDataPoint,
+			}
+			chartData = [...chartData, newDataPoint]
+		}
+		lastDataPoint = data[casesType][date]
+	}
