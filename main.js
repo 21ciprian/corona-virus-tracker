@@ -59,7 +59,7 @@ async function fetchAllRecoveredCases() {
 	populateTable(countries)
 	// console.log('countries fetched: ', data)
 }
-/fetch all death cases
+//fetch all death cases
 async function fetchAllDeathCases() {
 	const response = await fetch(`https://disease.sh/v3/covid-19/countries`)
 	const data = await response.json()
@@ -100,3 +100,16 @@ function populateTable(countries) {
 		tableCases.appendChild(tableRow)
 	})
 }
+//display all covid cases
+async function fetchWorldwide() {
+	const response = await fetch('https://disease.sh/v3/covid-19/all')
+	const data = await response.json()
+	todayCases.innerText = `+${data.todayCases}`
+	totalCases.innerText = `${data.cases} Total`
+	todayRecovered.innerText = `+${data.todayRecovered}`
+	totalRecovered.innerText = `${data.recovered} Total`
+	todayDeaths.innerText = `+${data.todayDeaths}`
+	totalDeaths.innerText = `${data.deaths} Total`
+	//console.log('worldwide data: ', data)
+}
+fetchWorldwide()
