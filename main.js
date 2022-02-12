@@ -113,3 +113,31 @@ async function fetchWorldwide() {
 	//console.log('worldwide data: ', data)
 }
 fetchWorldwide()
+let latitude = 0
+let longitude = 0
+//fetch country on change
+async function countryChange(event) {
+	const countryCode = event.target.value
+	console.log('countryCode is: ', countryCode)
+	const url =
+		countryCode === 'worldwide'
+			? 'https://disease.sh/v3/covid-19/all'
+			: `https://disease.sh/v3/covid-19/countries/${countryCode}`
+	//fetch data for each country selected
+	const response = await fetch(url)
+	const data = await response.json()
+	todayCases.innerText = `+${data.todayCases}`
+	totalCases.innerText = `${data.cases} Total`
+	todayRecovered.innerText = `+${data.todayRecovered}`
+	totalRecovered.innerText = `${data.recovered} Total`
+	todayDeaths.innerText = `+${data.todayDeaths}`
+	totalDeaths.innerText = `${data.deaths} Total`
+	if (countryCode === 'worldwide') {
+		setAllCasesCircles()
+		// fetchAllCasesForChart()
+	} else {
+		showOneCountryOnMap(data)
+		chartCountryCode = countryCode
+		console.log('chartCountryCode inside else:', chartCountryCode)
+	}
+}
