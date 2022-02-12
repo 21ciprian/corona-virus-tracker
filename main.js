@@ -286,3 +286,8 @@ function locateCountry() {
 	console.log('locatecountry lat: ', latitude)
 	console.log('locatecountry long: ', longitude)
 }
+//add event listner on selectcuntries
+selectCountries.addEventListener('click', countryChange)
+covidCases.addEventListener('click', setAllCasesCircles)
+covidRecoveries.addEventListener('click', setRecoveredCircles)
+covidDeaths.addEventListener('click', setDeathsCircles)
