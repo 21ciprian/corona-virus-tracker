@@ -320,3 +320,27 @@ async function fetchAllCasesForChart(code) {
 	// convertCaseTypesForChart(data.timeline, 'cases')
 }
 fetchAllCasesForChart(chartCountryCode)
+async function fetchRecoveredForChart(code) {
+	if (code === 'worldwide') {
+		const response = await fetch(
+			'https://disease.sh/v3/covid-19/historical/all?lastdays=60'
+		)
+		const data = await response.json()
+		convertCaseTypesForChart(data, 'recovered')
+	} else {
+		const response = await fetch(
+			`https://disease.sh/v3/covid-19/historical/${code}?lastdays=30`
+		)
+		const data = await response.json()
+		convertCaseTypesForChart(data.timeline, 'recovered')
+	}
+	// const url =
+	// 	code === 'worldwide'
+	// 		? 'https://disease.sh/v3/covid-19/historical/all?lastdays=60'
+	// 		: `https://disease.sh/v3/covid-19/historical/${code}?lastdays=30`
+
+	// const response = await fetch(url)
+	// const data = await response.json()
+	// // console.log('data for graph recovered: ', data.recovered)
+	// convertCaseTypesForChart(data.timeline, 'recovered')
+}
