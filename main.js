@@ -229,3 +229,17 @@ function showOnMap(data, casesType) {
 	hideLoader()
 	return countryPopup
 }
+
+// *************************map*******
+
+let myChart, country, map
+
+// create initial map
+function createMap() {
+	map = L.map('map').setView([40, 40], 3)
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map)
+	//   let country = L.marker([ lat, long ])
+	//   country.addTo(map)
+}
+
+createMap()
