@@ -241,5 +241,10 @@ function createMap() {
 	//   let country = L.marker([ lat, long ])
 	//   country.addTo(map)
 }
-
+function createOneCountryMap(lat, long) {
+	map = L.map('map').setView([lat, long], 3)
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map)
+	//   let country = L.marker([ lat, long ])
+	//   country.addTo(map)
+}
 createMap()
