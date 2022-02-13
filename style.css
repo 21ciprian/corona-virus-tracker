@@ -6,15 +6,15 @@
 html,
 body {
 	font-family: sans-serif;
-	/* background-color: #212529; */
+	background-color: #212529;
 }
 .app {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	padding: 2rem;
-	/* border: 2px solid red; */
 }
+
 .app__header {
 	display: flex;
 	align-items: center;
@@ -30,9 +30,10 @@ body {
 	top: 0px;
 	left: 0px;
 	position: fixed;
-	display: none;
+	display: block;
 	z-index: 99;
 }
+
 #loading-image {
 	position: absolute;
 	top: 50%;
@@ -40,12 +41,11 @@ body {
 	transform: translate(-50%, -50%);
 	z-index: 100;
 }
+
 h1 {
 	font-size: 2rem;
 	margin-bottom: 0.5rem;
-	/* color: #f8f9fa; */
-	/* padding-bottom: 5px; */
-	/* border: 2px solid blue; */
+	color: #f8f9fa;
 }
 .cov {
 	animation: spin 4s linear infinite;
@@ -58,7 +58,8 @@ h1 {
 		transform: rotate(360deg);
 	}
 }
-#select {
+
+#places {
 	font-size: 1.1rem;
 	padding: 0.5rem;
 	border-radius: 0.5rem;
@@ -71,7 +72,7 @@ h1 {
 	flex: 1;
 	background-color: #fff;
 	margin-bottom: 1rem;
-	box-shadow: 0 3px 3px rgb(36, 36, 36);
+	box-shadow: 0 3px 3px rgb(161, 2, 2);
 	padding: 0.5rem;
 	border-radius: 5px;
 }
@@ -90,10 +91,64 @@ h1 {
 #map {
 	height: 500px;
 	margin-bottom: 1rem;
-	/* background-color: green; */
 }
 .leaflet-container {
 	height: 100%;
+}
+.info__container {
+	width: 150px;
+	height: 150px;
+}
+.info__flag {
+	height: 80px;
+	width: 100%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	border-radius: 8px;
+	border: 2px solid black;
+}
+
+.leaflet-popup-content p {
+	margin: 0;
+}
+.info__name,
+.info__confirmed,
+.info__recovered,
+.info__deaths {
+	margin: 0.3rem auto 0;
+	padding: 0;
+}
+
+.app__right {
+	background-color: #ffffff;
+	width: 100%;
+	border-radius: 5px;
+	margin: auto;
+}
+.app__right h3 {
+	text-align: center;
+	margin-top: 0.5rem;
+}
+.table {
+	display: block;
+	overflow-y: scroll;
+	padding: 0.8rem;
+	height: 25rem;
+}
+.table__flag {
+	max-width: 20px;
+	height: auto;
+}
+.table tr {
+	display: flex;
+	justify-content: space-between;
+}
+.table td {
+	padding: 0.5rem;
+}
+.table tr:nth-of-type(odd) {
+	background-color: #dbd9d9;
 }
 @media (min-width: 760px) {
 	.app__header {
@@ -111,14 +166,12 @@ h1 {
 	.app__left {
 		width: 70%;
 		height: 95vh;
-		/* border: 2px solid red; */
 	}
 	#map {
 		height: 78.8%;
 	}
 	.app__right {
 		height: 95vh;
-		/* border: 2px solid yellow; */
 		width: 30%;
 	}
 	#table {

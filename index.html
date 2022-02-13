@@ -4,7 +4,12 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<!-- <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" /> -->
+		<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+		<!--  map -->
+
+		<!-- chart -->
+
+		<!-- map css -->
 		<link
 			rel="stylesheet"
 			href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -12,7 +17,8 @@
 			crossorigin=""
 		/>
 		<link rel="stylesheet" href="./style.css" />
-		<title>Corona Virus Tracker</title>
+
+		<title>Covid Tracker</title>
 	</head>
 	<body>
 		<div id="loader">
@@ -40,7 +46,7 @@
 						>VID-19 Tracker
 					</h1>
 					<form class="app__dropdown">
-						<select name="select" id="select">
+						<select name="places" id="places">
 							<option value="worldwide">Worldwide</option>
 						</select>
 					</form>
@@ -62,9 +68,8 @@
 						<h4 id="totalDeaths" class="infoCard__total"></h4>
 					</div>
 				</section>
+				<section id="map"></section>
 			</article>
-			<section id="map"></section>
-
 			<article class="app__right">
 				<section>
 					<h3>Live Cases by Country</h3>
@@ -87,6 +92,8 @@
 			crossorigin="anonymous"
 			referrerpolicy="no-referrer"
 		></script>
-		<script src="./main.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
+		<script type="module" src="./main.js"></script>
 	</body>
 </html>

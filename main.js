@@ -1,11 +1,17 @@
-console.log('linked')
+// import numeral from 'numeral'
+let numbert = numeral(100000).format('0.0a')
+console.log('numbert:', numbert)
+window.onload = function () {
+	document.getElementById('loader').style.display = 'none'
+}
 function displayLoader() {
 	document.getElementById('loader').style.display = 'block'
 }
 function hideLoader() {
 	document.getElementById('loader').style.display = 'none'
 }
-const selectCountries = document.querySelector('#select')
+
+const selectCountries = document.querySelector('#places')
 const todayCases = document.querySelector('#todayCases')
 const totalCases = document.querySelector('#totalCases')
 const todayRecovered = document.querySelector('#todayRecovered')
@@ -32,8 +38,6 @@ const casesTypeColors = {
 	},
 }
 
-selectCountries.addEventListener('click', () => console.log('clicked select'))
-
 //fetch all covid cases
 async function fetchAllCovidCases() {
 	const response = await fetch(`https://disease.sh/v3/covid-19/countries`)
@@ -47,10 +51,10 @@ async function fetchAllCovidCases() {
 			cases: country.cases,
 		}
 	})
-	// showOnMap(data, 'cases')
-	// populateOptions(countries)
-	// populateTable(countries)
-	console.log('countries fetched: ', data)
+	showOnMap(data, 'cases')
+	populateOptions(countries)
+	populateTable(countries)
+	// console.log('countries fetched: ', data)
 }
 
 fetchAllCovidCases()
@@ -72,6 +76,7 @@ async function fetchAllRecoveredCases() {
 	populateTable(countries)
 	// console.log('countries fetched: ', data)
 }
+
 //fetch all death cases
 async function fetchAllDeathCases() {
 	const response = await fetch(`https://disease.sh/v3/covid-19/countries`)
@@ -91,7 +96,9 @@ async function fetchAllDeathCases() {
 	populateTable(countries)
 	// console.log('countries fetched: ', data[0].countryInfo.flag)
 }
-//create options for select component
+//fetchAllDeathCases()
+
+//create options
 function populateOptions(countries) {
 	countries.map(function (country) {
 		const option = document.createElement('option')
@@ -100,7 +107,7 @@ function populateOptions(countries) {
 		selectCountries.appendChild(option)
 	})
 }
-//populate table with county names and covid cases
+//populate table
 function populateTable(countries) {
 	countries.map(function (country) {
 		const tableRow = document.createElement('tr')
@@ -113,7 +120,7 @@ function populateTable(countries) {
 		tableCases.appendChild(tableRow)
 	})
 }
-//display all covid cases
+
 async function fetchWorldwide() {
 	const response = await fetch('https://disease.sh/v3/covid-19/all')
 	const data = await response.json()
@@ -128,7 +135,6 @@ async function fetchWorldwide() {
 fetchWorldwide()
 let latitude = 0
 let longitude = 0
-//fetch country on change
 async function countryChange(event) {
 	const countryCode = event.target.value
 	console.log('countryCode is: ', countryCode)
@@ -154,7 +160,8 @@ async function countryChange(event) {
 		console.log('chartCountryCode inside else:', chartCountryCode)
 	}
 }
-//show single country data on map
+console.log('chartCountryCode:', chartCountryCode)
+//show single country on map
 function showOneCountryOnMap(data) {
 	console.log('one country data: ', data)
 	// fetchCasesCountryforChart(chartCountryCode)
@@ -196,7 +203,7 @@ function showOneCountryOnMap(data) {
 		.openPopup()
 	// .closePopup()
 }
-//show all countries data on map
+//show data on map
 function showOnMap(data, casesType) {
 	const countryPopup = data.map(function (country) {
 		const container = document.createElement('section')
@@ -245,7 +252,7 @@ function showOnMap(data, casesType) {
 
 // *************************map*******
 
-var myChart, country, map
+let myChart, country, map
 
 // create initial map
 function createMap() {
@@ -260,8 +267,9 @@ function createOneCountryMap(lat, long) {
 	//   let country = L.marker([ lat, long ])
 	//   country.addTo(map)
 }
+
 createMap()
-//display circles for covid cases
+
 async function setAllCasesCircles() {
 	displayLoader()
 	console.log('clicked case')
@@ -300,10 +308,11 @@ function locateCountry() {
 	console.log('locatecountry long: ', longitude)
 }
 //add event listner on selectcuntries
-selectCountries.addEventListener('click', countryChange)
+selectCountries.addEventListener('change', countryChange)
 covidCases.addEventListener('click', setAllCasesCircles)
 covidRecoveries.addEventListener('click', setRecoveredCircles)
 covidDeaths.addEventListener('click', setDeathsCircles)
+
 // **************chart*********
 //fetch data for chart
 
@@ -333,6 +342,9 @@ async function fetchAllCasesForChart(code) {
 	// convertCaseTypesForChart(data.timeline, 'cases')
 }
 fetchAllCasesForChart(chartCountryCode)
+
+//fetch recovered cases for chart
+
 async function fetchRecoveredForChart(code) {
 	if (code === 'worldwide') {
 		const response = await fetch(
@@ -357,6 +369,7 @@ async function fetchRecoveredForChart(code) {
 	// // console.log('data for graph recovered: ', data.recovered)
 	// convertCaseTypesForChart(data.timeline, 'recovered')
 }
+
 //fetch deaths cases for chart
 
 async function fetchDeathsForChart(code) {
@@ -382,8 +395,49 @@ async function fetchDeathsForChart(code) {
 	// const data = await response.json()
 	// // console.log('data for graph deaths: ', data)
 	// convertCaseTypesForChart(data.timeline, 'deaths')
-}
-//convert data for
+} ////duplicate
+// async function fetchCasesCountryforChart(code) {
+// 	const url =
+// 		code !== 'worldwide'
+// 			? `https://disease.sh/v3/covid-19/historical/${code}?lastdays=30`
+// 			: 'https://disease.sh/v3/covid-19/historical/all?lastdays=60'
+
+// 	const response = await fetch(url)
+// 	const data = await response.json()
+// 	console.log('data for graph cases testing: ', data)
+// 	// convertCaseTypesForChart(data, 'cases')
+// }
+
+// fetchAllCasesForChart()
+// //fetch recovered cases for chart
+
+// // async function fetchRecoveredCountryforChart(code) {
+// 	const url =
+// 		code !== 'worldwide'
+// 			? `https://disease.sh/v3/covid-19/historical/${code}?lastdays=30`
+// 			: 'https://disease.sh/v3/covid-19/historical/all?lastdays=60'
+
+// 	const response = await fetch(url)
+// 	const data = await response.json()
+// 	// console.log('data for graph recovered: ', data.recovered)
+// 	convertCaseTypesForChart(data, 'recovered')
+// }
+
+// //fetch deaths cases for chart
+
+// async function fetchDeathCountryforChart(code) {
+// const url =
+// 	code !== 'worldwide'
+// 		? `https://disease.sh/v3/covid-19/historical/${code}?lastdays=30`
+// 		: 'https://disease.sh/v3/covid-19/historical/all?lastdays=60'
+
+// const response = await fetch(url)
+// const data = await response.json()
+// 	// console.log('data for graph deaths: ', data)
+// 	convertCaseTypesForChart(data, 'deaths')
+// }
+
+// fetchDeathsForChart()
 function convertCaseTypesForChart(data, casesType) {
 	let chartData = []
 	let lastDataPoint
@@ -397,6 +451,7 @@ function convertCaseTypesForChart(data, casesType) {
 		}
 		lastDataPoint = data[casesType][date]
 	}
+
 	//create chart
 	myChart = new Chart(ctx, {
 		type: 'line',
