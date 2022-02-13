@@ -24,7 +24,21 @@ const covidDeaths = document.querySelector('#covidDeaths')
 const tableCases = document.querySelector('#table')
 const ctx = document.querySelector('#myChart')
 let chartCountryCode = 'worldwide'
-let myChart, country, map, longitude, latitude
+let myChart, map
+// countryData.varLongitude,
+// countryData.varLatitude,
+// varCountryName,
+// varDeaths,
+// varAllCases,
+// varRecovered
+const countryData = {
+	varLongitude: 0,
+	varLatitude: 0,
+	varCountryName: '',
+	varDeaths: 0,
+	varAllCases: 0,
+	varRecovered: 0,
+}
 const casesTypeColors = {
 	cases: {hex: '#0066ff', rgba: 'rgba(0, 102, 255, 0.4)', multiplier: 300},
 	recovered: {
@@ -133,18 +147,8 @@ async function fetchWorldwide() {
 	totalDeaths.innerText = `${data.deaths} Total`
 	//console.log('worldwide data: ', data)
 }
-async function fetchFlagWorldwide() {
-	const response = await fetch('https://disease.sh/v3/covid-19/all')
-	const data = await response.json()
-	todayCases.innerText = `+${data.todayCases}`
-	totalCases.innerText = `${data.cases} Total`
-	todayRecovered.innerText = `+${data.todayRecovered}`
-	totalRecovered.innerText = `${data.recovered} Total`
-	todayDeaths.innerText = `+${data.todayDeaths}`
-	totalDeaths.innerText = `${data.deaths} Total`
-	//console.log('worldwide data: ', data)
-}
-fetchFlagWorldwide()
+
+fetchWorldwide()
 
 async function countryChange(event) {
 	const countryCode = event.target.value
@@ -163,7 +167,7 @@ async function countryChange(event) {
 	todayDeaths.innerText = `+${data.todayDeaths}`
 	totalDeaths.innerText = `${data.deaths} Total`
 	if (countryCode === 'worldwide') {
-		setAllCasesCircles()
+		// setAllCasesCircles()
 		// fetchAllCasesForChart()
 	} else {
 		showOneCountryOnMap(data)
@@ -174,9 +178,6 @@ async function countryChange(event) {
 console.log('chartCountryCode:', chartCountryCode)
 //show single country on map
 function showOneCountryOnMap(data) {
-	// console.log('one country data: ', data)
-	// fetchCasesCountryforChart(chartCountryCode)
-
 	const container = document.createElement('section')
 	container.classList.add('info__container')
 	const flag = document.createElement('img')
@@ -198,10 +199,10 @@ function showOneCountryOnMap(data) {
 	const deaths = document.createElement('p')
 	deaths.classList.add('info__deaths')
 	deaths.innerText = `Deaths: ${data.deaths}`
-	latitude = data.countryInfo.lat
-	longitude = data.countryInfo.long
-	console.log('country longitude inside: ', longitude)
-	console.log('country latitude inside: ', latitude)
+	countryData.varLatitude = data.countryInfo.lat
+	countryData.varLongitude = data.countryInfo.long
+	console.log('country longitude inside: ', countryData.varLongitude)
+	console.log('country latitude inside: ', countryData.varLatitude)
 	container.append(flag, countryName, cases, recovered, deaths)
 	map.remove()
 	createOneCountryMap(data.countryInfo.lat, data.countryInfo.long)
@@ -218,8 +219,8 @@ function showOneCountryOnMap(data) {
 		.openPopup()
 	// .closePopup()
 }
-console.log('country longitude: ', longitude)
-console.log('country latitude: ', latitude)
+console.log('country longitude: ', countryData.varLongitude)
+console.log('country latitude: ', countryData.varLatitude)
 
 //show data on map
 function showOnMap(data, casesType) {
@@ -298,9 +299,15 @@ async function setAllCasesCircles() {
 	} else {
 		// map.remove()
 
-		console.log('country longitude inside else all cases: ', longitude)
-		console.log('country latitude inside else all cases: ', latitude)
-		createOneCountryMap(latitude, longitude)
+		console.log(
+			'country longitude inside else all cases: ',
+			countryData.varLongitude
+		)
+		console.log(
+			'country latitude inside else all cases: ',
+			countryData.varLatitude
+		)
+		createOneCountryMap(countryData.varLatitude, countryData.varLongitude)
 	}
 
 	await fetchAllCovidCases()
@@ -318,9 +325,15 @@ async function setRecoveredCircles() {
 	} else {
 		// map.remove()
 
-		console.log('country longitude inside else recoveered: ', longitude)
-		console.log('country latitude inside else recoveered: ', latitude)
-		createOneCountryMap(latitude, longitude)
+		console.log(
+			'country longitude inside else recoveered: ',
+			countryData.varLongitude
+		)
+		console.log(
+			'country latitude inside else recoveered: ',
+			countryData.varLatitude
+		)
+		createOneCountryMap(countryData.varLatitude, countryData.varLongitude)
 	}
 
 	await fetchAllRecoveredCases()
@@ -336,11 +349,17 @@ async function setDeathsCircles() {
 
 		createMap()
 	} else {
-		createOneCountryMap(latitude, longitude)
+		createOneCountryMap(countryData.varLatitude, countryData.varLongitude)
 		// map.remove()
 
-		console.log('country longitude inside else deaths: ', longitude)
-		console.log('country latitude inside else deaths: ', latitude)
+		console.log(
+			'country longitude inside else deaths: ',
+			countryData.varLongitude
+		)
+		console.log(
+			'country latitude inside else deaths: ',
+			countryData.varLatitude
+		)
 	}
 	await fetchAllDeathCases()
 	await fetchDeathsForChart(chartCountryCode)
