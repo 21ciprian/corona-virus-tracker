@@ -1,4 +1,7 @@
 console.log('linked')
+function displayLoader() {
+	document.getElementById('loader').style.display = 'block'
+}
 const selectCountries = document.querySelector('#select')
 const todayCases = document.querySelector('#todayCases')
 const totalCases = document.querySelector('#totalCases')
@@ -27,13 +30,7 @@ const casesTypeColors = {
 }
 
 selectCountries.addEventListener('click', () => console.log('clicked select'))
-// function createMap() {
-// 	map = L.map('map').setView([40, 40], 3)
-// 	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map)
-// 	//   let country = L.marker([ lat, long ])
-// 	//   country.addTo(map)
-// }
-// createMap()
+
 //fetch all covid cases
 async function fetchAllCovidCases() {
 	const response = await fetch(`https://disease.sh/v3/covid-19/countries`)
