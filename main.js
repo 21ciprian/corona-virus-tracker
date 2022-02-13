@@ -2,6 +2,9 @@ console.log('linked')
 function displayLoader() {
 	document.getElementById('loader').style.display = 'block'
 }
+function hideLoader() {
+	document.getElementById('loader').style.display = 'none'
+}
 const selectCountries = document.querySelector('#select')
 const todayCases = document.querySelector('#todayCases')
 const totalCases = document.querySelector('#totalCases')
