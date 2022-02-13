@@ -6,7 +6,7 @@
 html,
 body {
 	font-family: sans-serif;
-	background-color: #212529;
+	background-color: #dbe1e7;
 }
 .app {
 	display: flex;
@@ -45,7 +45,7 @@ body {
 h1 {
 	font-size: 2rem;
 	margin-bottom: 0.5rem;
-	color: #f8f9fa;
+	/* color: #f8f9fa; */
 }
 .cov {
 	animation: spin 4s linear infinite;
@@ -72,7 +72,7 @@ h1 {
 	flex: 1;
 	background-color: #fff;
 	margin-bottom: 1rem;
-	box-shadow: 0 3px 3px rgb(161, 2, 2);
+	box-shadow: 0 3px 3px rgb(107, 107, 107);
 	padding: 0.5rem;
 	border-radius: 5px;
 }
@@ -85,12 +85,14 @@ h1 {
 }
 .infoCard__cases {
 	font-weight: 600;
-	color: #cc1034;
 	margin: 0.5rem 0;
 }
 #map {
 	height: 500px;
 	margin-bottom: 1rem;
+	/* padding: 1rem; */
+	border: 15px solid white;
+	border-radius: 5px;
 }
 .leaflet-container {
 	height: 100%;
