@@ -12,15 +12,28 @@ const covidDeaths = document.querySelector('#covidDeaths')
 const tableCases = document.querySelector('#table')
 const ctx = document.querySelector('#myChart')
 let chartCountryCode = 'worldwide'
+const casesTypeColors = {
+	cases: {hex: '#0066ff', rgba: 'rgba(0, 102, 255, 0.4)', multiplier: 300},
+	recovered: {
+		hex: '#008000',
+		rgba: 'rgba(0, 128, 0, 0.4)',
+		multiplier: 300,
+	},
+	deaths: {
+		hex: '#fb4443',
+		rgba: 'rgba(251, 67, 67, 0.4)',
+		multiplier: 600,
+	},
+}
 
 selectCountries.addEventListener('click', () => console.log('clicked select'))
-function createMap() {
-	map = L.map('map').setView([40, 40], 3)
-	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map)
-	//   let country = L.marker([ lat, long ])
-	//   country.addTo(map)
-}
-createMap()
+// function createMap() {
+// 	map = L.map('map').setView([40, 40], 3)
+// 	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map)
+// 	//   let country = L.marker([ lat, long ])
+// 	//   country.addTo(map)
+// }
+// createMap()
 //fetch all covid cases
 async function fetchAllCovidCases() {
 	const response = await fetch(`https://disease.sh/v3/covid-19/countries`)
@@ -232,7 +245,7 @@ function showOnMap(data, casesType) {
 
 // *************************map*******
 
-let myChart, country, map
+var myChart, country, map
 
 // create initial map
 function createMap() {
