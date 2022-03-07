@@ -1,6 +1,3 @@
-// import numeral from 'numeral'
-let numbert = numeral(100000).format('0.0a')
-console.log('numbert:', numbert)
 window.onload = function () {
 	document.getElementById('loader').style.display = 'none'
 }
@@ -25,16 +22,12 @@ const tableCases = document.querySelector('#table')
 const ctx = document.querySelector('#myChart')
 let chartCountryCode = 'worldwide'
 let myChart, map
-// countryData.varLongitude,
-// countryData.varLatitude,
-// varCountryName,
-// varDeaths,
-// varAllCases,
-// varRecovered
+
 const countryData = {
 	varLongitude: 0,
 	varLatitude: 0,
 	varCountryName: '',
+	varCountryFlag: '',
 	varDeaths: 0,
 	varAllCases: 0,
 	varRecovered: 0,
@@ -111,7 +104,6 @@ async function fetchAllDeathCases() {
 	populateTable(countries)
 	// console.log('countries fetched: ', data[0].countryInfo.flag)
 }
-//fetchAllDeathCases()
 
 //create options
 function populateOptions(countries) {
@@ -153,6 +145,8 @@ fetchWorldwide()
 async function countryChange(event) {
 	const countryCode = event.target.value
 	console.log('countryCode is: ', countryCode)
+	myChart.destroy()
+
 	const url =
 		countryCode === 'worldwide'
 			? 'https://disease.sh/v3/covid-19/all'
@@ -167,13 +161,14 @@ async function countryChange(event) {
 	todayDeaths.innerText = `+${data.todayDeaths}`
 	totalDeaths.innerText = `${data.deaths} Total`
 	if (countryCode === 'worldwide') {
-		// setAllCasesCircles()
-		// fetchAllCasesForChart()
+		setAllCasesCircles()
+		fetchAllCasesForChart()
 	} else {
 		showOneCountryOnMap(data)
 		chartCountryCode = countryCode
 		console.log('chartCountryCode inside else:', chartCountryCode)
 	}
+	// map.remove()
 }
 console.log('chartCountryCode:', chartCountryCode)
 //show single country on map
@@ -183,7 +178,7 @@ function showOneCountryOnMap(data) {
 	const flag = document.createElement('img')
 	flag.src = data.countryInfo.flag
 	flag.classList.add('info__flag')
-	//create function to generate DOM elements
+	// create function to generate DOM elements
 	const countryName = document.createElement('h4')
 	countryName.classList.add('info__name')
 	countryName.innerText = data.country
@@ -201,9 +196,13 @@ function showOneCountryOnMap(data) {
 	deaths.innerText = `Deaths: ${data.deaths}`
 	countryData.varLatitude = data.countryInfo.lat
 	countryData.varLongitude = data.countryInfo.long
-	console.log('country longitude inside: ', countryData.varLongitude)
-	console.log('country latitude inside: ', countryData.varLatitude)
-	container.append(flag, countryName, cases, recovered, deaths)
+	countryData.varCountryFlag = data.countryInfo.flag
+	countryData.varDeaths = data.deaths
+	countryData.varAllCases = data.cases
+	countryData.varRecovered = data.recovered
+	countryData.varCountryName = data.country
+
+	container.append(flag, countryName, cases, recovered, deaths) //flag,
 	map.remove()
 	createOneCountryMap(data.countryInfo.lat, data.countryInfo.long)
 	L.circle([data.countryInfo.lat, data.countryInfo.long], {
@@ -288,16 +287,16 @@ function createOneCountryMap(lat, long) {
 createMap()
 
 async function setAllCasesCircles() {
-	displayLoader()
+	// displayLoader()
 	console.log('clicked case')
 	myChart.destroy()
-	map.remove()
 	if (chartCountryCode === 'worldwide') {
+		map.remove()
 		// map.remove()
 
 		createMap()
 	} else {
-		// map.remove()
+		map.remove()
 
 		console.log(
 			'country longitude inside else all cases: ',
@@ -311,19 +310,19 @@ async function setAllCasesCircles() {
 	}
 
 	await fetchAllCovidCases()
-	await fetchAllCasesForChart(chartCountryCode)
+	await fetchAllCasesForChart()
 }
 async function setRecoveredCircles() {
-	displayLoader()
+	// displayLoader()
 	console.log('clicked recovered')
 	myChart.destroy()
-	map.remove()
+	// map.remove()
 	if (chartCountryCode === 'worldwide') {
-		// map.remove()
+		map.remove()
 
 		createMap()
 	} else {
-		// map.remove()
+		map.remove()
 
 		console.log(
 			'country longitude inside else recoveered: ',
@@ -337,20 +336,20 @@ async function setRecoveredCircles() {
 	}
 
 	await fetchAllRecoveredCases()
-	await fetchRecoveredForChart(chartCountryCode)
+	await fetchRecoveredForChart()
 }
 async function setDeathsCircles() {
 	console.log('clicked deaths')
 	myChart.destroy()
-	displayLoader()
-	map.remove()
+	// displayLoader()
+	// map.remove()
 	if (chartCountryCode === 'worldwide') {
-		// map.remove()
+		map.remove()
 
 		createMap()
 	} else {
 		createOneCountryMap(countryData.varLatitude, countryData.varLongitude)
-		// map.remove()
+		map.remove()
 
 		console.log(
 			'country longitude inside else deaths: ',
@@ -362,7 +361,7 @@ async function setDeathsCircles() {
 		)
 	}
 	await fetchAllDeathCases()
-	await fetchDeathsForChart(chartCountryCode)
+	await fetchDeathsForChart()
 }
 
 selectCountries.addEventListener('change', countryChange)
@@ -374,68 +373,41 @@ covidDeaths.addEventListener('click', setDeathsCircles)
 //fetch data for chart
 
 //fetch all cases for chart
-async function fetchAllCasesForChart(code) {
-	if (code === 'worldwide') {
-		const response = await fetch(
-			'https://disease.sh/v3/covid-19/historical/all?lastdays=60'
-		)
-		const data = await response.json()
-		// console.log('data worldwide all cases: ', data)
+async function fetchAllCasesForChart() {
+	// if (code === 'worldwide') {
+	const response = await fetch(
+		'https://disease.sh/v3/covid-19/historical/all?lastdays=60'
+	)
+	const data = await response.json()
+	// console.log('data worldwide all cases: ', data)
 
-		convertCaseTypesForChart(data, 'cases')
-	} else {
-		const response = await fetch(
-			`https://disease.sh/v3/covid-19/historical/${code}?lastdays=30`
-		)
-		const data = await response.json()
-		// console.log('data country all cases: ', data)
-
-		convertCaseTypesForChart(data.timeline, 'cases')
-	}
+	convertCaseTypesForChart(data, 'cases')
 }
-fetchAllCasesForChart(chartCountryCode)
+fetchAllCasesForChart()
 
 //fetch recovered cases for chart
 
-async function fetchRecoveredForChart(code) {
-	if (code === 'worldwide') {
-		const response = await fetch(
-			'https://disease.sh/v3/covid-19/historical/all?lastdays=60'
-		)
-		const data = await response.json()
-		// console.log('data worldwide recovered: ', data)
-		convertCaseTypesForChart(data, 'recovered')
-	} else {
-		const response = await fetch(
-			`https://disease.sh/v3/covid-19/historical/${code}?lastdays=30`
-		)
-		const data = await response.json()
-		// console.log('data country recovered: ', data)
-
-		convertCaseTypesForChart(data.timeline, 'recovered')
-	}
+async function fetchRecoveredForChart() {
+	// if (code === 'worldwide') {
+	const response = await fetch(
+		'https://disease.sh/v3/covid-19/historical/all?lastdays=60'
+	)
+	const data = await response.json()
+	// console.log('data worldwide recovered: ', data)
+	convertCaseTypesForChart(data, 'recovered')
 }
 
 //fetch deaths cases for chart
 
-async function fetchDeathsForChart(code) {
-	if (code === 'worldwide') {
-		const response = await fetch(
-			'https://disease.sh/v3/covid-19/historical/all?lastdays=60'
-		)
-		const data = await response.json()
-		// console.log('data worldwide deaths: ', data)
+async function fetchDeathsForChart() {
+	// if (code === 'worldwide') {
+	const response = await fetch(
+		'https://disease.sh/v3/covid-19/historical/all?lastdays=60'
+	)
+	const data = await response.json()
+	// console.log('data worldwide deaths: ', data)
 
-		convertCaseTypesForChart(data, 'deaths')
-	} else {
-		const response = await fetch(
-			`https://disease.sh/v3/covid-19/historical/${code}?lastdays=30`
-		)
-		const data = await response.json()
-		// console.log('data country deaths: ', data)
-
-		convertCaseTypesForChart(data.timeline, 'deaths')
-	}
+	convertCaseTypesForChart(data, 'deaths')
 } ////duplicate
 
 function convertCaseTypesForChart(data, casesType) {
@@ -453,6 +425,7 @@ function convertCaseTypesForChart(data, casesType) {
 	}
 
 	//create chart
+
 	myChart = new Chart(ctx, {
 		type: 'line',
 
