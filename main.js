@@ -166,11 +166,13 @@ async function countryChange(event) {
 	} else {
 		showOneCountryOnMap(data)
 		chartCountryCode = countryCode
-		console.log('chartCountryCode inside else:', chartCountryCode)
+		// console.log('chartCountryCode inside else:', chartCountryCode)
+		// setAllCasesCircles()
+		fetchAllCasesForChart()
 	}
 	// map.remove()
 }
-console.log('chartCountryCode:', chartCountryCode)
+// console.log('chartCountryCode:', chartCountryCode)
 //show single country on map
 function showOneCountryOnMap(data) {
 	const container = document.createElement('section')
@@ -218,8 +220,8 @@ function showOneCountryOnMap(data) {
 		.openPopup()
 	// .closePopup()
 }
-console.log('country longitude: ', countryData.varLongitude)
-console.log('country latitude: ', countryData.varLatitude)
+// console.log('country longitude: ', countryData.varLongitude)
+// console.log('country latitude: ', countryData.varLatitude)
 
 //show data on map
 function showOnMap(data, casesType) {
@@ -286,82 +288,82 @@ function createOneCountryMap(lat, long) {
 
 createMap()
 
-async function setAllCasesCircles() {
+function setAllCasesCircles() {
 	// displayLoader()
 	console.log('clicked case')
 	myChart.destroy()
+	map.remove()
 	if (chartCountryCode === 'worldwide') {
-		map.remove()
 		// map.remove()
 
 		createMap()
 	} else {
-		map.remove()
+		// map.remove()
 
-		console.log(
-			'country longitude inside else all cases: ',
-			countryData.varLongitude
-		)
-		console.log(
-			'country latitude inside else all cases: ',
-			countryData.varLatitude
-		)
+		// console.log(
+		// 	'country longitude inside else all cases: ',
+		// 	countryData.varLongitude
+		// )
+		// console.log(
+		// 	'country latitude inside else all cases: ',
+		// 	countryData.varLatitude
+		// )
 		createOneCountryMap(countryData.varLatitude, countryData.varLongitude)
 	}
 
-	await fetchAllCovidCases()
-	await fetchAllCasesForChart()
+	fetchAllCovidCases()
+	fetchAllCasesForChart()
 }
-async function setRecoveredCircles() {
-	// displayLoader()
+function setRecoveredCircles() {
+	displayLoader()
 	console.log('clicked recovered')
 	myChart.destroy()
-	// map.remove()
+	map.remove()
 	if (chartCountryCode === 'worldwide') {
-		map.remove()
+		// map.remove()
 
 		createMap()
 	} else {
-		map.remove()
+		// map.remove()
 
-		console.log(
-			'country longitude inside else recoveered: ',
-			countryData.varLongitude
-		)
-		console.log(
-			'country latitude inside else recoveered: ',
-			countryData.varLatitude
-		)
+		// console.log(
+		// 	'country longitude inside else recoveered: ',
+		// 	countryData.varLongitude
+		// )
+		// console.log(
+		// 	'country latitude inside else recoveered: ',
+		// 	countryData.varLatitude
+		// )
 		createOneCountryMap(countryData.varLatitude, countryData.varLongitude)
 	}
 
-	await fetchAllRecoveredCases()
-	await fetchRecoveredForChart()
+	fetchAllRecoveredCases()
+	fetchRecoveredForChart()
 }
-async function setDeathsCircles() {
+function setDeathsCircles() {
 	console.log('clicked deaths')
 	myChart.destroy()
-	// displayLoader()
-	// map.remove()
+	displayLoader()
+	map.remove()
 	if (chartCountryCode === 'worldwide') {
-		map.remove()
+		// map.remove()
 
 		createMap()
 	} else {
 		createOneCountryMap(countryData.varLatitude, countryData.varLongitude)
-		map.remove()
+		// map.remove()
 
-		console.log(
-			'country longitude inside else deaths: ',
-			countryData.varLongitude
-		)
-		console.log(
-			'country latitude inside else deaths: ',
-			countryData.varLatitude
-		)
+		// console.log(
+		// 	'country longitude inside else deaths: ',
+		// 	countryData.varLongitude
+		// )
+		// console.log(
+		// 	'country latitude inside else deaths: ',
+		// 	countryData.varLatitude
+		// )
 	}
-	await fetchAllDeathCases()
-	await fetchDeathsForChart()
+	fetchAllDeathCases()
+	fetchDeathsForChart()
 }
 
 selectCountries.addEventListener('change', countryChange)
