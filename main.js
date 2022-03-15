@@ -132,11 +132,11 @@ async function fetchWorldwide() {
 	const response = await fetch('https://disease.sh/v3/covid-19/all')
 	const data = await response.json()
 	todayCases.innerText = `+${numeral(data.todayCases).format('0a')}`
-	totalCases.innerText = `${data.cases} Total`
+	totalCases.innerText = `${numeral(data.cases).format('0.0a')} Total`
 	todayRecovered.innerText = `+${numeral(data.todayRecovered).format('0a')}`
-	totalRecovered.innerText = `${data.recovered} Total`
+	totalRecovered.innerText = `${numeral(data.recovered).format('0.0a')} Total`
 	todayDeaths.innerText = `+${numeral(data.todayDeaths).format('0a')}`
-	totalDeaths.innerText = `${data.deaths} Total`
+	totalDeaths.innerText = `${numeral(data.deaths).format('0.0a')} Total`
 	//console.log('worldwide data: ', data)
 }
 
@@ -155,11 +155,11 @@ async function countryChange(event) {
 	const response = await fetch(url)
 	const data = await response.json()
 	todayCases.innerText = `+${numeral(data.todayCases).format('0a')}`
-	totalCases.innerText = `${data.cases} Total`
+	totalCases.innerText = `${numeral(data.cases).format('0.0a')} Total`
 	todayRecovered.innerText = `+${numeral(data.todayRecovered).format('0a')}`
-	totalRecovered.innerText = `${data.recovered} Total`
+	totalRecovered.innerText = `${numeral(data.recovered).format('0.0a')} Total`
 	todayDeaths.innerText = `+${numeral(data.todayDeaths).format('0a')}`
-	totalDeaths.innerText = `${data.deaths} Total`
+	totalDeaths.innerText = `${numeral(data.deaths).format('0.0a')} Total`
 	if (countryCode === 'worldwide') {
 		setAllCasesCircles()
 		fetchAllCasesForChart()
