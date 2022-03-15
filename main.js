@@ -131,11 +131,11 @@ function populateTable(countries) {
 async function fetchWorldwide() {
 	const response = await fetch('https://disease.sh/v3/covid-19/all')
 	const data = await response.json()
-	todayCases.innerText = `+${data.todayCases}`
+	todayCases.innerText = `+${numeral(data.todayCases).format('0a')}`
 	totalCases.innerText = `${data.cases} Total`
-	todayRecovered.innerText = `+${data.todayRecovered}`
+	todayRecovered.innerText = `+${numeral(data.todayRecovered).format('0a')}`
 	totalRecovered.innerText = `${data.recovered} Total`
-	todayDeaths.innerText = `+${data.todayDeaths}`
+	todayDeaths.innerText = `+${numeral(data.todayDeaths).format('0a')}`
 	totalDeaths.innerText = `${data.deaths} Total`
 	//console.log('worldwide data: ', data)
 }
@@ -154,11 +154,11 @@ async function countryChange(event) {
 	//fetch data for each country selected
 	const response = await fetch(url)
 	const data = await response.json()
-	todayCases.innerText = `+${data.todayCases}`
+	todayCases.innerText = `+${numeral(data.todayCases).format('0a')}`
 	totalCases.innerText = `${data.cases} Total`
-	todayRecovered.innerText = `+${data.todayRecovered}`
+	todayRecovered.innerText = `+${numeral(data.todayRecovered).format('0a')}`
 	totalRecovered.innerText = `${data.recovered} Total`
-	todayDeaths.innerText = `+${data.todayDeaths}`
+	todayDeaths.innerText = `+${numeral(data.todayDeaths).format('0a')}`
 	totalDeaths.innerText = `${data.deaths} Total`
 	if (countryCode === 'worldwide') {
 		setAllCasesCircles()
