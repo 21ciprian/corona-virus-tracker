@@ -21,9 +21,6 @@
 		<title>Covid Tracker</title>
 	</head>
 	<body>
-		<div id="loader">
-			<img id="loading-image" src="./loading.gif" alt="Loading..." />
-		</div>
 		<section class="app">
 			<article class="app__left">
 				<header class="app__header">
@@ -68,7 +65,11 @@
 						<h4 id="totalDeaths" class="infoCard__total"></h4>
 					</div>
 				</section>
-				<section id="map"></section>
+				<section id="map">
+					<div class="loader">
+						<img id="loading-image" src="./loading.gif" alt="Loading..." />
+					</div>
+				</section>
 			</article>
 			<article class="app__right">
 				<section>
@@ -76,8 +77,11 @@
 					<table class="table" id="table"></table>
 				</section>
 				<section>
+					<!-- <div class="loader">
+						<img id="loading-image" src="./loading.gif" alt="Loading..." />
+					</div> -->
 					<h3>Worldwide new cases</h3>
-					<canvas id="myChart"></canvas>
+					<canvas id="myChart"> </canvas>
 				</section>
 			</article>
 		</section>

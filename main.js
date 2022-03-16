@@ -1,11 +1,11 @@
 window.onload = function () {
-	document.getElementById('loader').style.display = 'none'
+	document.querySelector('.loader').style.display = 'none'
 }
 function displayLoader() {
-	document.getElementById('loader').style.display = 'block'
+	document.querySelector('.loader').style.display = 'block'
 }
 function hideLoader() {
-	document.getElementById('loader').style.display = 'none'
+	document.querySelector('.loader').style.display = 'none'
 }
 
 const selectCountries = document.querySelector('#places')
@@ -289,7 +289,7 @@ function createOneCountryMap(lat, long) {
 createMap()
 
 function setAllCasesCircles() {
-	// displayLoader()
+	displayLoader()
 	console.log('clicked case')
 	myChart.destroy()
 	// map.remove()
@@ -425,7 +425,7 @@ function convertCaseTypesForChart(data, casesType) {
 			}
 			chartData = [...chartData, newDataPoint]
 		}
-		lastDataPoint = data[casesType][date]
+		lastDataPoint = data[casesType][date] // numeral(lastDataPoin).format('0.0a')
 	}
 
 	//create chart
