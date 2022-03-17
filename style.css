@@ -11,10 +11,15 @@ body {
 .app {
 	display: flex;
 	flex-direction: column;
+	justify-content: space-evenly;
 	width: 100%;
 	padding: 2rem;
+	height: 100%;
+	margin-bottom: 2rem;
 }
-
+.app__left {
+	max-height: 84vh;
+}
 .app__header {
 	display: flex;
 	align-items: center;
@@ -142,10 +147,7 @@ h1 {
 	padding: 0.8rem;
 	height: 25rem;
 }
-.table__flag {
-	max-width: 20px;
-	height: auto;
-}
+
 .table tr {
 	display: flex;
 	justify-content: space-between;
@@ -156,10 +158,22 @@ h1 {
 .table tr:nth-of-type(odd) {
 	background-color: #dbd9d9;
 }
+.chart-section {
+	/* margin-top: -2rem; */
+	background-color: inherit;
+}
+
 @media (min-width: 760px) {
 	.app__header {
 		flex-direction: row;
 		justify-content: space-between;
+	}
+	#table {
+		max-height: 50vh;
+	}
+	.chart-section {
+		margin-top: 0;
+		background-color: inherit;
 	}
 }
 @media (min-width: 900px) {
@@ -177,10 +191,15 @@ h1 {
 		height: 78.8%;
 	}
 	.app__right {
-		height: 95vh;
+		height: 98vh;
 		width: 30%;
+		padding-bottom: 0;
 	}
 	#table {
-		height: 60vh;
+		max-height: 55vh;
+	}
+	.chart-section {
+		margin-top: -1rem;
+		background-color: inherit;
 	}
 }

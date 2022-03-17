@@ -310,7 +310,7 @@ function setAllCasesCircles() {
 		// )
 		createOneCountryMap(countryData.varLatitude, countryData.varLongitude)
 	}
-
+	// map.remove()
 	fetchAllCovidCases()
 	fetchAllCasesForChart()
 }
@@ -318,13 +318,13 @@ function setRecoveredCircles() {
 	displayLoader()
 	console.log('clicked recovered')
 	myChart.destroy()
-	// map.remove()
+	map.remove()
 	if (chartCountryCode === 'worldwide') {
 		map.remove()
 
 		createMap()
 	} else {
-		map.remove()
+		// map.remove()
 
 		// console.log(
 		// 	'country longitude inside else recoveered: ',
@@ -344,7 +344,7 @@ function setDeathsCircles() {
 	console.log('clicked deaths')
 	myChart.destroy()
 	displayLoader()
-	// map.remove()
+	map.remove()
 	if (chartCountryCode === 'worldwide') {
 		map.remove()
 
@@ -384,7 +384,6 @@ async function fetchAllCasesForChart() {
 	)
 	const data = await response.json()
 	// console.log('data worldwide all cases: ', data)
-
 	convertCaseTypesForChart(data, 'cases')
 }
 fetchAllCasesForChart()
