@@ -292,13 +292,13 @@ function setAllCasesCircles() {
 	displayLoader()
 	console.log('clicked case')
 	myChart.destroy()
-	// map.remove()
+	map.remove()
 	if (chartCountryCode === 'worldwide') {
-		map.remove()
+		// map.remove()
 
 		createMap()
 	} else {
-		map.remove()
+		// map.remove()
 
 		// console.log(
 		// 	'country longitude inside else all cases: ',
@@ -320,7 +320,7 @@ function setRecoveredCircles() {
 	myChart.destroy()
 	map.remove()
 	if (chartCountryCode === 'worldwide') {
-		map.remove()
+		// map.remove()
 
 		createMap()
 	} else {
@@ -342,15 +342,15 @@ function setRecoveredCircles() {
 }
 function setDeathsCircles() {
 	console.log('clicked deaths')
-	myChart.destroy()
 	displayLoader()
+	myChart.destroy()
 	map.remove()
 	if (chartCountryCode === 'worldwide') {
-		map.remove()
+		// map.remove()
 
 		createMap()
 	} else {
-		map.remove()
+		// map.remove()
 
 		createOneCountryMap(countryData.varLatitude, countryData.varLongitude)
 		// map.remove()
